@@ -9,6 +9,11 @@ export default class CartItem extends React.Component{
             Qty:1,
             img: ''
         }
+        //  this.increaseQuantity = this.increaseQuantity.bind(this);
+    }
+
+    increaseQuantity = () => {
+        console.log('this', this.state);
     }
     render(){
         // object destructuring
@@ -24,9 +29,22 @@ export default class CartItem extends React.Component{
                     <div style = {{color: '#777'}}>Qty: {Qty}</div>
                     <div className="cart-item-actions">
                         {/* {Button } */}
-                        <img alt="increase" className="action-icons" src="https://as2.ftcdn.net/jpg/01/07/62/07/500_F_107620769_UwNVSoXnKS4VNcOKoZjPohlEPn83oE38.jpg" />
-                        <img alt="decrease" className="action-icons" src="https://www.flaticon.com/premium-icon/icons/svg/2740/2740679.svg" />
-                        <img alt="delete" className="action-icons" src="https://t4.ftcdn.net/jpg/00/98/26/11/240_F_98261175_Sv69O3rZsHApYkjAdrWbgQixYHwyZyOr.jpg" />
+                        <img
+                         alt="increase"
+                         className="action-icons" 
+                         src="https://as2.ftcdn.net/jpg/01/07/62/07/500_F_107620769_UwNVSoXnKS4VNcOKoZjPohlEPn83oE38.jpg"
+                         onClick = {this.increaseQuantity}
+                         />
+                        <img
+                         alt="decrease"
+                         className="action-icons" 
+                         src="https://www.flaticon.com/premium-icon/icons/svg/2740/2740679.svg"
+                          />
+                        <img
+                         alt="delete" 
+                         className="action-icons" 
+                         src="https://t4.ftcdn.net/jpg/00/98/26/11/240_F_98261175_Sv69O3rZsHApYkjAdrWbgQixYHwyZyOr.jpg" 
+                         />
                     </div>
                 </div>
             </div>
