@@ -39,11 +39,15 @@ export default class CartItem extends React.Component{
 
     // decrease Quantity
     decreaseQuantity = () => {
-        console.log('this', this.state);
-        // setState method-1
-        this.setState({
-            Qty: this.state.Qty - 1
-        });
+        // Object destructuring 
+        const {Qty} = this.state
+        if (Qty > 0){
+            console.log('this', this.state);
+            // setState method-1
+            this.setState({
+                Qty: this.state.Qty - 1
+            });
+        }
     }
 
     render(){
