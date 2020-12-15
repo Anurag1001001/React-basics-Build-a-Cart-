@@ -17,24 +17,24 @@ export default class CartItem extends React.Component{
     increaseQuantity = () => {
         // state will get change by this way also but react will not reflect it to client side, so chnage the state use setState() 
         // this.state.Qty += 1
-        console.log('this', this.state);
+        
 
         
         // setState method-1
-        // this.setState({
-        //     Qty: this.state.Qty + 1
-        // });
+        this.setState({
+            Qty: this.state.Qty + 1
+        });
 
 
         // setState method-2
         //  Instead of passing object over there we'll pass callback function 
         // Use this method when prevState is required
-        this.setState((prevState) =>{
-            // Calling setState() simply means that rerendering the page if state changes
-            return {
-                Qty: this.state.Qty + 1
-            }
-        });
+        // this.setState((prevState) =>{
+        //     // Calling setState() simply means that rerendering the page if state changes
+        //     return {
+        //         Qty: this.state.Qty + 1
+        //     }
+        // });        
     }
 
     // decrease Quantity
@@ -54,7 +54,9 @@ export default class CartItem extends React.Component{
         // object destructuring
         const {price, title, Qty} = this.state
         return(
+            
             <div className ="cart-item">
+                this.setState()
                 <div className="left-block">
                     <img style = {styles.image} />
                 </div>
