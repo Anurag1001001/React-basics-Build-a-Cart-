@@ -56,7 +56,6 @@ export default class CartItem extends React.Component{
         return(
             
             <div className ="cart-item">
-                this.setState()
                 <div className="left-block">
                     <img style = {styles.image} />
                 </div>
