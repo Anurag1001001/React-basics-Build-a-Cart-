@@ -1,19 +1,6 @@
 import React from 'react';
 
 export default class CartItem extends React.Component{
-    constructor(){
-        // Since we're inheriting Component from React and in javascript if we're inheriting something then we should call parent constructor first in app constructor 
-        super();
-        this.state = {
-            price:999,
-            title: 'Phone',
-            Qty:1,
-            img: ''
-        }
-        // Just google it give a read over bind()
-        //  this.increaseQuantity = this.increaseQuantity.bind(this);
-    }
-
     increaseQuantity = () => {
         // state will get change by this way also but react will not reflect it to client side, so chnage the state use setState() 
         // this.state.Qty += 1
@@ -51,8 +38,11 @@ export default class CartItem extends React.Component{
     }
 
     render(){
+        // Every instance of cart Item will have a property called props and inside that props we'll get the data which we're passing attribute in cart.js(parent component)
+        console.log('this.props', this.props);
         // object destructuring
-        const {price, title, Qty} = this.state
+        // product as  a object send hua h(as a props ) so ese likha h this.props.product 
+        const {price, title, Qty} = this.props.product
         return(
             
             <div className ="cart-item">
