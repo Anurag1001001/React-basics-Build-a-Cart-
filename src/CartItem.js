@@ -28,13 +28,14 @@ export default class CartItem extends React.Component{
     decreaseQuantity = () => {
         // Object destructuring 
         const {Qty} = this.state
-        if (Qty > 0){
+        if (Qty == 0){
+            return
+        }
             console.log('this', this.state);
             // setState method-1
             this.setState({
                 Qty: this.state.Qty - 1
-            });
-        }
+            });       
     }
 
     render(){
@@ -42,7 +43,8 @@ export default class CartItem extends React.Component{
         console.log('this.props', this.props);
         // object destructuring
         // product as  a object send hua h(as a props ) so ese likha h this.props.product 
-        const {price, title, Qty} = this.props.product
+        const {price, title, Qty, id} = this.props.product;
+        const {onDeleteProduct} = this.props;
         return(
             
             <div className ="cart-item">
@@ -65,12 +67,13 @@ export default class CartItem extends React.Component{
                          alt="decrease"
                          className="action-icons" 
                          src="https://www.flaticon.com/premium-icon/icons/svg/2740/2740679.svg"
-                         onClick = {() => this.props.onDeccreaseQuantity(this.props.product)}
+                         onClick = {() => this.props.onDecreaseQuantity(this.props.product)}
                           />
                         <img
                          alt="delete" 
                          className="action-icons" 
                          src="https://t4.ftcdn.net/jpg/00/98/26/11/240_F_98261175_Sv69O3rZsHApYkjAdrWbgQixYHwyZyOr.jpg" 
+                         onClick = {() => onDeleteProduct(id) }
                          />
                     </div>
                 </div>
