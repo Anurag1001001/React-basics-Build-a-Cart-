@@ -59,7 +59,7 @@ export default class CartItem extends React.Component{
                          alt="increase"
                          className="action-icons" 
                          src="https://as2.ftcdn.net/jpg/01/07/62/07/500_F_107620769_UwNVSoXnKS4VNcOKoZjPohlEPn83oE38.jpg"
-                         onClick = {this.increaseQuantity}
+                         onClick = {() => this.props.onIncreaseQuantity(this.props.product)}
                          />
                         <img
                          alt="decrease"
