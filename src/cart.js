@@ -47,6 +47,18 @@ export default class Cart extends React.Component{
         })
     }
 
+    handleDeccreaseQuantity = (product) =>{
+        console.log('please decrease the quantity of the product');
+        const {products} = this.state;
+        const index = products.indexOf(product);
+        if (products[index].Qty > 0){
+            products[index].Qty -= 1
+        }
+        this.setState({
+            products: products
+        })
+    }
+
     // we can pass any data from Cart to CartItem via props
     render(){
         const {products} = this.state;
@@ -61,6 +73,7 @@ export default class Cart extends React.Component{
                             product={product}
                             key={product.id}
                             onIncreaseQuantity = {this.handleIncreaseQuantity}
+                            onDeccreaseQuantity = {this.handleDeccreaseQuantity}
                         />
                     )
                 })}
