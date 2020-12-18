@@ -39,7 +39,9 @@ const CartItem = (props) =>{
     // }
 
         // Every instance of cart Item will have a property called props and inside that props we'll get the data which we're passing attribute in cart.js(parent component)
-        console.log('this.props', props);
+        
+        // console.log('this.props', props);
+        
         // object destructuring
         // product as  a object send hua h(as a props ) so ese likha h this.props.product 
         const {price, title, Qty, id} = props.product;
