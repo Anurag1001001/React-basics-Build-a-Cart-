@@ -80,6 +80,16 @@ export default class App extends React.Component{
       
   }
 
+  getCartTotal = () => {
+    const {products} = this.state;
+    let total = 0;
+  //   we can use map() instead of forEach() function
+    products.forEach((product) =>{
+        total += product.price* product.Qty
+    });
+    return total;
+  }
+
   render(){
     //  destructuring 
     const { products } = this.state;
@@ -93,6 +103,8 @@ export default class App extends React.Component{
             onDecreaseQuantity = {this.handleDecreaseQuantity}
             onDeleteProduct = {this.handleDeleteProduct}
         />
+
+        <div style ={{padding:10, fontsize:20}}> Total : {this.getCartTotal()}</div>
                 
       </div>
     );
