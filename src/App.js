@@ -2,39 +2,49 @@ import React from 'react';
 import Cart from './cart';
 // import CartItem from './CartItem';
 import Navbar from './Navbar';
+import firebase from 'firebase';
 
 export default class App extends React.Component{
     constructor(){
       // Since we're inheriting Component from React and in javascript if we're inheriting something then we should call parent constructor first in app constructor 
       super();
       this.state = {
-          products: [
-              {
-                  price:99,
-                  title: 'Watch',
-                  Qty:1,
-                  img: '',
-                  id:1
-              },
-              {
-                  price:999,
-                  title: 'Mobile Phone',
-                  Qty:10,
-                  img: '',
-                  id:2
-              },
-              {
-                  price:9999,
-                  title: 'Laptop Phone',
-                  Qty:1,
-                  img: '',
-                  id:3
-              }
-          ]
+          products: [],
+          loading : true
       }
       // Just google it give a read over bind()
       //  this.increaseQuantity = this.increaseQuantity.bind(this);
   }
+  //  componentDidMount
+
+  componentDidMount () {
+      firebase
+        .firestore()
+        .collection('products')
+        .get()
+        .then((snapshot) => {
+            // console.log(snapshot);
+
+            // snapshot.docs.map((doc) => {
+            //     console.log(doc.data())
+            // });
+
+            const products = snapshot.docs.map((doc) => {
+                const data = doc.data();
+
+                data['id'] = doc.id;
+                return data;
+            });
+            this.setState({
+                products: products,
+                loading: false
+            })
+        })
+  }
+
+
+
+
 
   // IncreaseQuantity function
   handleIncreaseQuantity = (product) =>{
@@ -92,7 +102,7 @@ export default class App extends React.Component{
 
   render(){
     //  destructuring 
-    const { products } = this.state;
+    const { products, loading } = this.state;
     // {console.log(product)}
     return (
       <div className="App">
@@ -103,7 +113,7 @@ export default class App extends React.Component{
             onDecreaseQuantity = {this.handleDecreaseQuantity}
             onDeleteProduct = {this.handleDeleteProduct}
         />
-
+        {loading && <h1>Loading Products....</h1>}
         <div style ={{padding:10, fontsize:20}}> Total : {this.getCartTotal()}</div>
                 
       </div>
