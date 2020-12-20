@@ -101,23 +101,49 @@ export default class App extends React.Component{
       console.log('please decrease the quantity of the product');
       const {products} = this.state;
       const index = products.indexOf(product);
+
+      if(products[index].Qty === 0){
+          return
+      }
+    
+      const docRef = this.db.collection('products').doc(products[index].id);
+      docRef.update({          
+          Qty: products[index].Qty - 1
+      })
+      .then(() =>{
+          console.log('Updated Successfully');
+      })
+      .catch((error) =>{
+          console.log('error', error);
+      })
+
+
+
       if (products[index].Qty === 0){
           return
       }
-      products[index].Qty -= 1
-      this.setState({
-          products: products
-      })
+    //   products[index].Qty -= 1
+    //   this.setState({
+    //       products: products
+    //   })
   }
 
   handleDeleteProduct = (id) =>{
       const {products} = this.state;
       //  this will create an array that contains elements whose id is not equal to mentioned id
-      const items = products.filter((item) =>  item.id !==  id);
-      this.setState({
-          products: items
-      })
-
+    //   const items = products.filter((item) =>  item.id !==  id);
+    //   this.setState({
+    //       products: items
+    //   })
+    const docRef = this.db.collection('products').doc(id);
+    docRef
+        .delete()
+        .then(() =>{
+            console.log('Deleted Successfully');
+        })
+        .catch((error) =>{
+            console.log('error', error);
+        })
   }
   getCartCount = () =>{
       const {products} = this.state;
