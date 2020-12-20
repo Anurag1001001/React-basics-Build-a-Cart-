@@ -48,6 +48,9 @@ export default class App extends React.Component{
     //  get() method basically fetch the data once
     this.db
         .collection('products')
+        // .where('price', '==', 900)
+        // .where('title', '==', 'Mobile')
+        .orderBy('price', 'asc')
         .onSnapshot((snapshot) => {
             // console.log(snapshot);
 
