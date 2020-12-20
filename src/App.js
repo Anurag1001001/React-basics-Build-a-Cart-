@@ -12,17 +12,43 @@ export default class App extends React.Component{
           products: [],
           loading : true
       }
+      this.db = firebase.firestore();
       // Just google it give a read over bind()
       //  this.increaseQuantity = this.increaseQuantity.bind(this);
   }
   //  componentDidMount
 
   componentDidMount () {
-      firebase
-        .firestore()
+    //   firebase
+    //     .firestore()
+    //     .collection('products')
+    //     .get()
+    //     .then((snapshot) => {
+    //         // console.log(snapshot);
+
+    //         // snapshot.docs.map((doc) => {
+    //         //     console.log(doc.data())
+    //         // });
+
+    //         const products = snapshot.docs.map((doc) => {
+    //             const data = doc.data();
+
+    //             data['id'] = doc.id;
+    //             return data;
+    //         });
+    //         this.setState({
+    //             products: products,
+    //             loading: false
+    //         })
+    //     })
+
+    //  I did a small change and used onSnapshot() instead of get() and inside onSnapshot used callback function
+    //  what basically onSnapshot() does is if something change happens to the data in the firebase database then onsSnapshot() fired and inside this we're calling setState() function that's why updation gets reflected to the UI without manually refreshing the page
+
+    //  get() method basically fetch the data once
+    this.db
         .collection('products')
-        .get()
-        .then((snapshot) => {
+        .onSnapshot((snapshot) => {
             // console.log(snapshot);
 
             // snapshot.docs.map((doc) => {
@@ -55,6 +81,10 @@ export default class App extends React.Component{
       this.setState({
           products
       })
+    
+    //  increase reflect to the firebase database
+    
+    
   }
 
   handleDecreaseQuantity = (product) =>{
@@ -100,6 +130,26 @@ export default class App extends React.Component{
     return total;
   }
 
+  addProduct = () => {
+      this.db
+        .collection('products')
+        .add({
+            img: '',
+            price: 900,
+            Qty:3,
+            title: 'Washing Machine'
+        })
+        // docRef refer to the collection(consist of product details basically this is the document that we're going to add to the collection of products into the firebase) that are inside {} in add() method and that product infact document are going to store inside collection of firebase db.
+        //  a litle update here add(), after adding a document to the database it return a promise and we'll handle with then, and docRef refers to the document that has been added.
+
+        .then((docRef) => {
+            console.log('Product has been added', docRef);
+        })
+        .catch((error) => {
+            console.log('Error :', error);
+        })
+  }
+
   render(){
     //  destructuring 
     const { products, loading } = this.state;
@@ -107,6 +157,7 @@ export default class App extends React.Component{
     return (
       <div className="App">
         <Navbar count = {this.getCartCount} />
+        {/* <button onClick = {this.addProduct}>Add Product</button> */}
         <Cart 
             products = {products}
             onIncreaseQuantity = {this.handleIncreaseQuantity}
