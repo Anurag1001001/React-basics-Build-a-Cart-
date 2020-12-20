@@ -77,14 +77,24 @@ export default class App extends React.Component{
       console.log('hey please increase the quantity  of ', product);
       const {products} = this.state;
       const index = products.indexOf(product);
-      products[index].Qty += 1;
-      this.setState({
-          products
-      })
+    //   products[index].Qty += 1;
+    //   this.setState({
+    //       products
+    //   })
     
     //  increase reflect to the firebase database
     
-    
+    const docRef = this.db.collection('products').doc(products[index].id);
+    docRef.update({
+        Qty: products[index].Qty + 1 
+    })
+    .then(() =>{
+        console.log('updated successfully');
+    })
+    .catch((error) =>{
+        console.log('error', error);
+    })
+
   }
 
   handleDecreaseQuantity = (product) =>{
